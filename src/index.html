@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang=""en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeskHub</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+    <header>
+
+        <h1>DeskHub</h1>
+
+        <button id="themeButton">🌙</button>
+
+    </header>
+    
+    <div class="grid">
+
+        <div class="card" id="clockCard">
+
+            <h2>👋 <span id="greeting">Hello</span></h2>
+
+            <h3 id="time">00:00:00</h3>
+
+            <p id="date">Loading...</p>
+
+        </div>
+        <div class="card">
+
+            <h2>🎯 Today's Focus</h2>
+
+            <textarea id="focusInput" placeholder="What is today's biggest goal?"></textarea>
+
+        </div>
+
+        <div class="card">
+
+            <h2>📝 Sticky Notes</h2>
+
+            <textarea id="notesInput" placeholder="Write anything..."></textarea>
+
+        </div>
+
+        <div class="card">
+
+            <h2>🔥 Habit Tracker</h2>
+            <div id="habitList"></div>
+
+        </div>
+
+        <div class="card">
+
+            <h2>✅ Tasks</h2>
+
+            <div class="taskInput">
+                <input id="taskInput" type="text" placeholder="Enter a task">
+                <button id="addTask">Add</button>
+            </div>
+
+            <ul id="taskList"></ul>
+
+        </div>
+
+        <div class="card">
+
+            <h2>⏱️ Pomodoro</h2>
+
+            <h3 id="timer">25:00</h3>
+
+            <div class="timerButtons">
+
+                <button id="startTimer">Start</button>
+                <button id="pauseTimer">Pause</button>
+                <button id="resetTimer">Reset</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+    <script src="script.js"></script>
+    
+</body>
+
+</html>
