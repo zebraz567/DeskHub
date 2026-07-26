@@ -9,8 +9,12 @@ function updateClock() {
 
     if(hour < 12) {
         greeting = "Good Morning";
-    } else if(hour < 18) {
+    }
+    else if(hour < 18) {
         greeting = "Good Afternoon";
+    }
+    else if(hour < 5) {
+        greeting = "Good Night";
     }
 
     document.getElementById("greeting").textContent = greeting;
