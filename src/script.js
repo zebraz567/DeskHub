@@ -14,7 +14,7 @@ function updateClock() {
         greeting = "Good Afternoon";
     }
     else if(hour < 5) {
-        greeting = "Good Night";
+        greeting = "Good Night , You need some sleep!";
     }
 
     document.getElementById("greeting").textContent = greeting;
