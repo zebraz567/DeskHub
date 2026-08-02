@@ -19,22 +19,21 @@ function updateClock() {
 
     document.getElementById("greeting").textContent = greeting;
 
-    document.getElementById("time").textContent=
+    document.getElementById("time").textContent =
         now.toLocaleTimeString();
 
-    document.getElementById("date").textContent=
+    document.getElementById("date").textContent =
         now.toLocaleDateString(undefined, {
             weekday: "long",
             year: "numeric",
             month: "long",
             day: "numeric"
-        });    
+        });
 
 }
 
 updateClock();
 setInterval(updateClock, 1000);
-
 
 const notesInput = document.getElementById("notesInput");
 
@@ -48,7 +47,6 @@ notesInput.addEventListener("input", () => {
 
 });
 
-
 const focusInput = document.getElementById("focusInput");
 
 console.log("Focus element", focusInput);
@@ -60,7 +58,6 @@ focusInput.addEventListener("input", () => {
     localStorage.setItem("dailyFocus", focusInput.value);
 
 });
-
 
 const taskInput = document.getElementById("taskInput");
 const addTask = document.getElementById("addTask");
@@ -76,7 +73,7 @@ function renderTasks() {
 
     taskList.innerHTML = "";
 
-    tasks.forEach((task,index) => {
+    tasks.forEach((task, index) => {
 
         const li = document.createElement("li");
 
@@ -93,7 +90,7 @@ function renderTasks() {
         const text = document.createElement("span");
         text.textContent = task.text;
 
-        if(task.completed){
+        if(task.completed) {
             text.style.textDecoration = "line-through";
             text.style.opacity = "0.6";
         }
@@ -103,7 +100,7 @@ function renderTasks() {
         deleteButton.textContent = "🗑️";
 
         deleteButton.addEventListener("click", () => {
-            tasks.splice(index,1);
+            tasks.splice(index, 1);
             saveTasks();
             renderTasks();
         });
@@ -115,7 +112,7 @@ function renderTasks() {
         taskList.appendChild(li);
 
     });
-}    
+}
 
     addTask.addEventListener("click", () => {
         const text = taskInput.value.trim();
@@ -138,11 +135,10 @@ function renderTasks() {
     renderTasks();
 
     taskInput.addEventListener("keypress", (event) => {
-        if(event.key === "Enter"){
+        if(event.key === "Enter") {
             addTask.click();
         }
     });
-
 
     const timerDisplay = document.getElementById("timer");
     const startButton = document.getElementById("startTimer");
@@ -150,15 +146,15 @@ function renderTasks() {
     const resetButton = document.getElementById("resetTimer");
 
     let timeLeft = 25*60;
-    let timerInterval= null;
+    let timerInterval = null;
 
     function updateTimer() {
 
         const minutes = Math.floor(timeLeft/60);
         const seconds = timeLeft % 60;
 
-        timerDisplay.textContent = 
-             `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
+        timerDisplay.textContent =
+             `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 
     }
 
@@ -168,20 +164,20 @@ function renderTasks() {
 
         timerInterval = setInterval(() => {
 
-            if(timeLeft > 0 ){
+            if(timeLeft > 0 ) {
                 timeLeft--;
                 updateTimer();
-            }else{
+            } else {
                 clearInterval(timerInterval);
                 timerInterval = null;
                 alert("🎉 Pomodoro Finished!")
             }
-        },1000);
+        }, 1000);
     });
 
     pauseButton.addEventListener("click", () => {
         clearInterval(timerInterval);
-        timerInterval=null;
+        timerInterval = null;
     });
 
     resetButton.addEventListener("click", () => {
@@ -193,30 +189,28 @@ function renderTasks() {
 
     updateTimer();
 
-
    const themeButton = document.getElementById("themeButton");
 
    const savedTheme = localStorage.getItem("theme");
 
-   if(savedTheme === "light"){
+   if(savedTheme === "light") {
 
        document.body.classList.add("light");
        themeButton.textContent = "☀️";
-                
+
    }
 
    themeButton.addEventListener("click", () => {
     document.body.classList.toggle("light");
-    if(document.body.classList.contains("light")){
+    if(document.body.classList.contains("light")) {
         localStorage.setItem("theme", "light");
         themeButton.textContent = "☀️";
 
-   }else{
-    localStorage.setItem("theme","dark");
-    themeButton.textContent = "🌙" ; 
+   } else {
+    localStorage.setItem("theme", "dark");
+    themeButton.textContent = "🌙" ;
    }
    });
-
 
    const habitList = document.getElementById("habitList");
 
