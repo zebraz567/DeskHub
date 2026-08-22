@@ -1,6 +1,6 @@
 # 💻 DeskHub
 
-DeskHub is a desktop producktivity dashboard buith with Electron , HTML , CSS , JavaScript and a cup of coffee , for the Hack Club **Macondo** YSWS Event.
+DeskHub is a desktop producktivity dashboard buith with Electron , HTML , CSS , JavaScript and a cup of coffee , for the Hack Club YSWS Event.
 
 ## Features
 
