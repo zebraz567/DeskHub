@@ -1,195 +1,216 @@
-function refreshClock() {
-    const rightNow = new Date();
-    const hr = rightNow.getHours();
-    let msg = "Good Evening";
-
-    if (hr < 12) {
-        msg = "Good Morning";
-    } else if (hr < 18) {
-        msg = "Good Afternoon";
-    } else if (hr < 5) {
-        msg = "Good Night , You need some sleep!";}
-
-    document.getElementById("greeting").textContent = msg;
-     document.getElementById("time").textContent = rightNow.toLocaleTimeString();
+function f1() 
+{ const d = new Date();
+       const h = d.getHours();
+    let g = "Good Evening";
+    if(h < 12)    
+    {  
+        g = "Good Morning";
+    }
+    else if(h < 18) {
+        g= "Good Afternoon";
+    }
+    else if(h   < 5) 
+    {
+        g ="Good Night , You need some sleep!";
+    }
+    document.getElementById("greeting").textContent = g;
+    document.getElementById("time").textContent = d.toLocaleTimeString();
     document.getElementById("date").textContent =
-        rightNow.toLocaleDateString(undefined, {
+        d.toLocaleDateString(undefined, {
             weekday: "long ",
-            year: " numeric",
-            month: " long",
-            day: "   numeric"
-        });
+            year : " numeric",
+            month :  " long",
+            day: "   numeric"  });
 }
-refreshClock();
-setInterval(refreshClock, 1000);
+f1();
+setInterval(f1, 1000) ;
 
-const stickyBox = document.getElementById("notesInput");
-stickyBox.value = localStorage.getItem("stickyNote") || "";
-stickyBox.addEventListener("input", () => {
-    localStorage.setItem("stickyNote", stickyBox.value);
+const a = document.getElementById("notesInput");
+a.value = localStorage.getItem("stickyNote") || "";
+a.addEventListener("input", () =>
+    {
+    localStorage.setItem("stickyNote", a.value);
 });
 
-const focusBox = document.getElementById("focusInput");
-focusBox.value = localStorage.getItem("dailyFocus") || "";
-focusBox.addEventListener("input", () => {
-    localStorage.setItem("dailyFocus", focusBox.value);
-});
+const b = document.getElementById("focusInput");
+b.value = localStorage.getItem("dailyFocus") || "";
+b.addEventListener("input", () => {
+    localStorage.setItem("dailyFocus", b.value);  } );
 
-const newTaskBox = document.getElementById("taskInput");
-const addTaskBtn = document.getElementById("addTask");
-const todoListEl = document.getElementById("taskList");
+const c = document.getElementById("taskInput");
+const btn1 = document.getElementById("addTask");
+const lst = document.getElementById("taskList");
 
-let myTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+let arr = JSON.parse(localStorage.getItem("tasks")) || [];
 
-function storeTasks() {
-    localStorage.setItem("tasks", JSON.stringify(myTasks));
+function s1() {
+    localStorage.setItem("tasks", JSON.stringify(arr));
 }
+function r1()
+{
+    lst.innerHTML = "";
+    arr.forEach((x, i) => {
 
-function showTasks() {
-    todoListEl.innerHTML = "";
-    myTasks.forEach((t, i) => {
-        const row = document.createElement("li");
+        const li = document.createElement("li");
 
-        const box = document.createElement("input");
-        box.type = "checkbox";
-        box.checked = t.completed;
-        box.addEventListener("change", () => {
-            myTasks[i].completed = box.checked;
-            storeTasks();
-            showTasks();
-        });
+        const cb = document.createElement("input");
+        cb.type = "checkbox";
+        cb.checked = x.completed;
+        cb.addEventListener("change", () => {
+            arr[i].completed = cb.checked;
+            s1();
+            r1();  });
 
-        const label = document.createElement("span");
-        label.textContent = t.text;
-        if (t.completed) {
-            label.style.textDecoration = "line-through";
-            label.style.opacity = "0.6";
+        const sp = document.createElement("span");
+        sp.textContent = x.text;
+        if(x.completed)
+        {
+            sp.style.textDecoration = "line-through";
+            sp.style.opacity = "0.6";
         }
 
-        const delBtn = document.createElement("button");
-        delBtn.className = "deleteButton";
-        delBtn.textContent = "🗑️";
-        delBtn.addEventListener("click", () => {
-            myTasks.splice(i, 1);
-            storeTasks();
-            showTasks();
-        });
+        const db = document.createElement("button");
+        db.className = "deleteButton";
+        db.textContent = "🗑️";
 
-        row.appendChild(box);
-        row.appendChild(label);
-        row.appendChild(delBtn);
-        todoListEl.appendChild(row);
+        db.addEventListener("click",  () => {
+            arr.splice(i, 1);
+            s1();
+            r1();
+        }  );
+        li.appendChild(cb);
+        li.appendChild(sp);
+        li.appendChild(db);
+
+        lst.appendChild(li);
+
     });
 }
 
-addTaskBtn.addEventListener("click", () => {
-    const val = newTaskBox.value.trim();
-    if (val === "") return;
+    btn1.addEventListener("click",    () =>   
+        {
+        const t = c.value.trim();
+        if(t === "")  return;
 
-    myTasks.push({
-        text: val,
-        completed: false
+        arr.push  ( {
+            text: t,
+            completed: false
+        });
+
+        c.value = "";
+        s1();
+        r1();
+
+    });
+    r1();
+    c.addEventListener("keypress", (e) => {
+        if(e.key ===  "Enter")
+        {
+            btn1.click();
+        }
     });
 
-    newTaskBox.value = "";
-    storeTasks();
-    showTasks();
-});
-showTasks();
+    const tm = document.getElementById("timer");
+    const p1 = document.getElementById("startTimer");
+    const p2 = document.getElementById("pauseTimer");
+    const p3 = document.getElementById("resetTimer");
+    let n = 25*60;
+    let iv = null;
+    function u1()
+    {
+        const mm = Math.floor(n/60);
+        const ss = n % 60;
 
-newTaskBox.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-        addTaskBtn.click();
+        tm.textContent =
+             `${String(mm).padStart(2, "0")}:${String(ss).padStart(2, "0")}`;
     }
-});
+    p1.addEventListener("click", () => {
 
-const timeLeftEl = document.getElementById("timer");
-const playBtn = document.getElementById("startTimer");
-const stopBtn = document.getElementById("pauseTimer");
-const clearBtn = document.getElementById("resetTimer");
-let secsLeft = 25 * 60;
-let clockId = null;
+        if(iv) return;
+        iv = setInterval(() => {
+            if(n > 0 ) {
+                n--;
+                u1();
+            } else {
+                clearInterval(iv);
+                iv = null;
+                alert("🎉 Pomodoro Finished!")
+            }
+        }, 1000);
+    });
 
-function paintTimer() {
-    const mins = Math.floor(secsLeft / 60);
-    const secs = secsLeft % 60;
-    timeLeftEl.textContent =
-        `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
-}
+    p2.addEventListener("click", () => {
+        clearInterval(iv);
+        iv = null;
+    });
 
-playBtn.addEventListener("click", () => {
-    if (clockId) return;
-    clockId = setInterval(() => {
-        if (secsLeft > 0) {
-            secsLeft--;
-            paintTimer();
-        } else {
-            clearInterval(clockId);
-            clockId = null;
-            alert("🎉 Pomodoro Finished!");
-        }
-    }, 1000);
-});
+    p3.addEventListener("click", () => {
+        clearInterval(iv);
+        iv = null;
+        n = 25*60;
+        u1();
+    });
 
-stopBtn.addEventListener("click", () => {
-    clearInterval(clockId);
-    clockId = null;
-});
+    u1();
 
-clearBtn.addEventListener("click", () => {
-    clearInterval(clockId);
-    clockId = null;
-    secsLeft = 25 * 60;
-    paintTimer();
-});
-paintTimer();
+   const tb = document.getElementById("themeButton");
 
-const modeBtn = document.getElementById("themeButton");
-const prevMode = localStorage.getItem("theme") ;
-if (prevMode ===   "light") {
-    document.body.classList.add("light");
-    modeBtn.textContent = "☀️";
-}
+   const st = localStorage.getItem("theme");
+   if(st === "light") {
 
-modeBtn.addEventListener("click", () => {
-    document.body.classList.toggle("light");
-    if (document.body.classList.contains("light")) {
+       document.body.classList.add("light");
+       tb.textContent = "☀️";
+
+   }
+
+   tb.addEventListener("click", () => {
+       
+         document.body.classList.toggle("light");
+    if(document.body.classList.contains("light") )
+    {
         localStorage.setItem("theme", "light");
-        modeBtn.textContent = "☀️";
-    } else {
-        localStorage.setItem("theme", "dark");
-        modeBtn.textContent = " 🌙";
-    }
-});
+        tb.textContent = "☀️";
 
-const habitBox = document.getElementById("habitList");
-const dailyHabits = [
+   } else {
+    localStorage.setItem("theme", "dark");
+    tb.textContent = "🌙" ;
+   }
+   });
+   const hl = document.getElementById("habitList");
+   const arr2 = [
     "💧 Drink 2L of Water",
     "📚 Study 1 Hour",
     "💻 Code Today",
-    "🏃 Exercise",
-    "😴  Sleep Before 11 P.M"];
-let doneHabits = JSON.parse(localStorage.getItem("habits" ))  || {};
+    `🏃 Exercise`,
+    "😴 Sleep Before 11 P.M"
+   ];
+   let obj1 =
+    JSON.parse(localStorage.getItem("habits")) || {};
 
-function showHabits()   {
-    habitBox.innerHTML = "" ;
-    dailyHabits.forEach((h) => {  const line = document.createElement("div");
-        line.className = "habitItem";
+   function r2() {
+      hl.innerHTML = "";
+     arr2.forEach((x) => {
+        const row = document.createElement("div");
+        row.className =  "habitItem";
 
-        const box = document.createElement("input");
-           box.type = "checkbox" ;
-        box.checked = doneHabits[h] || false;
-        box.addEventListener("change", () => {
-            doneHabits[h] = box.checked;
-            localStorage.setItem("habits", JSON.stringify(doneHabits));
-        });
+        const cb2 = document.createElement("input");
+        cb2.type = "checkbox";
+        cb2.checked = obj1[x] || false;
+        cb2.addEventListener("change", () => {
+            obj1[x] = cb2.checked;
 
-        const txt = document.createElement("span");
-        txt.textContent = h;
+            localStorage.setItem(
+                "habits",
+                JSON.stringify(obj1)
+            );  }  );
 
-        line.appendChild(box);
-        line.appendChild(txt);
-        habitBox.appendChild(line);
+        const lb = document.createElement("span");
+        lb.textContent = x;
+
+        row.appendChild(cb2);
+        row.appendChild(lb);
+        hl.appendChild(row);
     });
-}
-showHabits();
+   }
+
+   r2();
